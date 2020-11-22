@@ -1,0 +1,41 @@
+version: '3.1'
+
+services:
+  service-discovery:
+    build: ./service-discovery
+    restart: always
+    environment:
+      - eureka.login=${eureka_login}
+      - eureka.password=${eureka_password}
+      - eureka.url=${eureka_url}
+      - eureka.port=${eureka_port}
+    ports:
+      - 8761:${eureka_port}
+
+  business-api:
+    build: ./business-api
+    restart: always
+    environment:
+      - eureka.login=${eureka_login}
+      - eureka.password=${eureka_password}
+      - eureka.url=${eureka_url}
+      - eureka.port=${eureka_port}
+      - server.port=${business_api_server_port}
+    ports:
+      - 8080:${business_api_server_port}
+    links:
+      - "service-discovery:${eureka_url}"
+
+  api-gateway:
+    build: ./api-gateway
+    restart: always
+    environment:
+      - eureka.login=${eureka_login}
+      - eureka.password=${eureka_password}
+      - eureka.url=${eureka_url}
+      - eureka.port=${eureka_port}
+      - server.port=${api_gateway_server_port}
+    ports:
+      - 9090:${api_gateway_server_port}
+    links:
+      - "service-discovery:${eureka_url}"
