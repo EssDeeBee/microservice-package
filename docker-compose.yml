@@ -7,8 +7,7 @@ services:
     environment:
       - eureka.login=${eureka_login}
       - eureka.password=${eureka_password}
-      - eureka.url=${eureka_url}
-      - eureka.port=${eureka_port}
+      - server.port=${eureka_port}
     ports:
       - 8761:${eureka_port}
 
@@ -24,7 +23,7 @@ services:
     ports:
       - 8080:${business_api_server_port}
     links:
-      - "service-discovery:${eureka_url}"
+      - service-discovery:${eureka_url}
 
   api-gateway:
     build: ./api-gateway
@@ -38,4 +37,4 @@ services:
     ports:
       - 9090:${api_gateway_server_port}
     links:
-      - "service-discovery:${eureka_url}"
+      - service-discovery:${eureka_url}
