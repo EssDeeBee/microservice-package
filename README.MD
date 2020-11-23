@@ -1,4 +1,4 @@
-##The package includes three services:
+## The package includes three services:
 
 **service-discovery** - service which is based on 
 the eureka the main purpose is to register an application.<br/> 
@@ -24,3 +24,10 @@ The command can be launched with additional argument with environment path:
 _docker-compose --file-env .env-int up -d_ <br/>
 ## Environment
 All the necessary environment stored in the "__./.env__" file.
+
+## Using the app
+
+To use the app send GET request on api-gateway service. <br/>
+For example if the service deployed on localhost the curl request will be:<br/>
+_GET /business HTTP/1.1
+Host: localhost:9090_
